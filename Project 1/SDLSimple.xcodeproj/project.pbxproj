@@ -32,8 +32,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		4E86EC662CA734830035AA5C /* shield.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shield.png; sourceTree = "<group>"; };
-		4E86EC672CA740240035AA5C /* sword.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sword.png; sourceTree = "<group>"; };
 		4EE30DF32C8B91EB005E233E /* SDLSimple */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SDLSimple; sourceTree = BUILT_PRODUCTS_DIR; };
 		4EE30DF62C8B91EB005E233E /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		4EE30E032C8B9254005E233E /* glm */ = {isa = PBXFileReference; lastKnownFileType = folder; path = glm; sourceTree = "<group>"; };
@@ -86,8 +84,6 @@
 		4EE30DF52C8B91EB005E233E /* SDLSimple */ = {
 			isa = PBXGroup;
 			children = (
-				4E86EC672CA740240035AA5C /* sword.png */,
-				4E86EC662CA734830035AA5C /* shield.png */,
 				4EF4F4052CA5C2E800F290BA /* cola.png */,
 				4EF4F4022CA5B3F500F290BA /* umaru.png */,
 				4EE30E032C8B9254005E233E /* glm */,
