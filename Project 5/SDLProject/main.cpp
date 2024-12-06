@@ -1,7 +1,7 @@
 /**
 * Author: Tingting Min
-* Assignment: Platformer
-* Date due: 2023-11-23, 11:59pm
+* Assignment: Miner's Maze: Diamond Quest
+* Date due: 12/6/24, 2:00pm
 * I pledge that I have completed this assignment without
 * collaborating with anyone else, in conformance with the
 * NYU School of Engineering Policies and Procedures on
@@ -9,32 +9,37 @@
 **/
 
 /**
- Requirement 1: Menu Screen (10%) ✅
+ Requirement 1: Menu Screen (10%)  ✅
  Show the name of your game and the text "Press enter to start" (or any variation thereof). The keycode for enter is: SDLK_RETURN
  This can be a solid color background with text on it.
  The menu must be a different Scene object. Do not just show/hide text.
+ 
+ Requirement 2: 2 Minutes of Gameplay (40%)
+ Must have 2 minutes worth of significant gameplay. This does not mean exactly 2 minutes, but rather that the game can go on for 2+ minutes.
+ 
+ Must have 3 levels (Scene).
+ If your idea doesn't revolve around multi-level-based design, whatever scene structure that you implement must contain around the same quantity of content as a 3-level game.
+ 1. Gate of the mine
+ 2. 1st floor of mine
+ 3. 2nd floor of mine
+ 3. 3rd floor of mine
 
- Requirement 2: 3 Levels (40%) ✅
- Your game needs to have 3 levels. They do not need to be long or complicated.
- They must scroll! (no single screen games) If you do not have 3 scrolling levels, your grade for the entire project will be 0.
- This is a platformer game, it needs to have platforms.
+ Requirement 3: Moving AI (20%)
+ There should be at least three distinct types of these.
+ They must transform in some way.
+ These don't necessarily need to be enemies! Homing projectiles, moving platforms/obstacles also count as long as they are distinct from each other in behaviour.
 
- Requirement 3: 3 Lives (25%) ✅
- The player gets 3 lives for the entire game (not per level).
- If the player runs out of lives, show a “You Lose” text.
- If the player gets to the end of your game, show text a "You Win” text.
+ Requirement 4: Players Can Win and Lose (10%)
+ Some way for the player to lose (touching an AI, falling off a ledge, running out of time, etc.)
+ Some way for the player to win (defeating all AI, collecting all the coins, etc.)
+ Note that past students have done games where there are no win/lose conditions (e.g. a farming sim, etc.). This is also fine, but you must let us know in advance.
 
- Requirement 4: AI (25%) ✅
- At least 1 type of moving AI (place a couple of these AI in your game).
- If the player touches the AI, the player dies.
- Each of your levels must have at least 1 AI.
-
- Common Issues
- You might find it easier to work on the movement first (without any obstacles in the way). Once the movement is working, then add your environment.
-
+ Requirement 5: Shader Logic (10%)
+ Use at least one logic-based (i.e. if-statements) shader effect.
+ It can be any of the ones we talked about in class (or of your own design), but it must contribute the overall theme and experience of your game (i.e. don't just make the screen red for the sake of it).
+ 
  Extra Credit
- 1. Have a pseudo-start screen where, if the player presses a button, the entire screen freezes. Do not make this a separate Scene object. ✅
- 2. Add at least one special effect to your game. ✅
+ Apply at least one special effect. This can be one of the ones we wrote in class or a new one of your making.
  */
 
 
@@ -140,7 +145,7 @@ void switch_to_scene(Scene *scene)
 void initialise()
 {
     SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
-    g_display_window = SDL_CreateWindow("Spirit's Eve",
+    g_display_window = SDL_CreateWindow("Miner's Maze: Diamond Quest",
                                       SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
                                       WINDOW_WIDTH, WINDOW_HEIGHT,
                                       SDL_WINDOW_OPENGL);
@@ -181,7 +186,7 @@ void initialise()
     g_levels[3] = g_levelC;
     
     // Start at level A
-    switch_to_scene(g_levels[0]);
+    switch_to_scene(g_levels[1]);
     
     g_effects = new Effects(g_projection_matrix, g_view_matrix);
     g_effects->start(FADEIN, 1.0f);
@@ -251,7 +256,9 @@ void process_input()
     const Uint8 *key_state = SDL_GetKeyboardState(NULL);
 
     if (key_state[SDL_SCANCODE_A] and !(g_current_scene == g_menu))           g_current_scene->get_state().player->move_left();
-        else if (key_state[SDL_SCANCODE_D] and !(g_current_scene == g_menu))  g_current_scene->get_state().player->move_right();
+    else if (key_state[SDL_SCANCODE_D] and !(g_current_scene == g_menu))      g_current_scene->get_state().player->move_right();
+    else if (key_state[SDL_SCANCODE_W] and !(g_current_scene == g_menu))      g_current_scene->get_state().player->move_up();
+    else if (key_state[SDL_SCANCODE_S] and !(g_current_scene == g_menu))      g_current_scene->get_state().player->move_down();
          
     if (glm::length( g_current_scene->get_state().player->get_movement()) > 1.0f)
         g_current_scene->get_state().player->normalise_movement();
